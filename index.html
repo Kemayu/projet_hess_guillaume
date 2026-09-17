@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="card form-card" aria-labelledby="form-title">
+      <div class="card__header">
+        <p class="eyebrow">Création de compte</p>
+        <h1 id="form-title">S’inscrire</h1>
+        <p class="intro">Renseignez tous les champs ci-dessous pour créer votre profil.</p>
+      </div>
+
+      <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+      <form id="signupForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="login">Login</label>
+            <input id="login" name="login" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="password">Mot de passe</label>
+            <input id="password" name="password" type="password" required>
+          </div>
+
+          <div class="field">
+            <label for="confirmPassword">Confirmation du mot de passe</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" required>
+          </div>
+
+          <div class="field">
+            <label for="lastName">Nom</label>
+            <input id="lastName" name="lastName" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="firstName">Prénom</label>
+            <input id="firstName" name="firstName" type="text" required>
+          </div>
+
+          <div class="field field--full">
+            <label for="address">Adresse</label>
+            <input id="address" name="address" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">Téléphone</label>
+            <input id="phone" name="phone" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="birthDate">Date de naissance</label>
+            <input id="birthDate" name="birthDate" type="date" required>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button">S’inscrire</button>
+      </form>
+    </section>
+
+    <section id="summarySection" class="card summary-card hidden" aria-labelledby="summary-title">
+      <div class="card__header">
+        <p class="eyebrow">Récapitulatif</p>
+        <h2 id="summary-title">Votre inscription est prête</h2>
+        <p class="intro">Voici les informations que vous avez saisies.</p>
+      </div>
+
+      <div id="summaryContent" class="summary-content"></div>
+    </section>
+  </main>
+</body>
+</html>
