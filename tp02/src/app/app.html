@@ -1,0 +1,18 @@
+<main class="page-shell">
+  <section class="hero">
+    <h1>Déclaration d'une nouvelle pollution</h1>
+  </section>
+  
+  @if (!submittedDeclaration) {
+    <section class="content-grid">
+      <app-pollution-form (submitted)="onDeclarationSubmitted($event)"></app-pollution-form>
+    </section>
+  } @else {
+    <section class="content-grid">
+      <app-pollution-recap
+        [declaration]="submittedDeclaration!"
+        (restart)="onRestart()">
+      </app-pollution-recap>
+    </section>
+  }
+</main>

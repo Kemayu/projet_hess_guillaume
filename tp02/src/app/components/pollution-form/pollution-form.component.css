@@ -1,0 +1,114 @@
+.card {
+  border: 1px solid rgba(23, 49, 39, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 60px rgba(23, 49, 39, 0.12);
+  padding: 28px;
+  backdrop-filter: blur(10px);
+}
+
+.card-header h2,
+.recap-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-header p {
+  margin: 8px 0 0;
+  color: #5e7369;
+}
+
+.pollution-form {
+  margin-top: 22px;
+}
+
+.field-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+label {
+  display: flex;
+  flex: 1 1 260px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  max-width: calc(50% - 9px);
+}
+
+label span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(23, 49, 39, 0.16);
+  border-radius: 16px;
+  background: #fff;
+  color: #173127;
+  padding: 14px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #1e7a4d;
+  box-shadow: 0 0 0 4px rgba(30, 122, 77, 0.12);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+small {
+  color: #a63f2d;
+  font-size: 0.84rem;
+}
+
+.coordonnees-row {
+  display: flex;
+  gap: 18px;
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.coord-field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.full-width {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #1e7a4d, #145237);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 16px 30px rgba(30, 122, 77, 0.22);
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+

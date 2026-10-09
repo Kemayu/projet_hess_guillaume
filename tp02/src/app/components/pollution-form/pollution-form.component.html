@@ -1,0 +1,122 @@
+<article class="card">
+  <header class="card-header">
+    <h2>Formulaire Nouvelle déclaration</h2>
+  </header>
+
+  <form
+    class="pollution-form"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    novalidate
+  >
+    <div class="field-grid">
+      <label>
+        <span>Titre de la pollution</span>
+        <input
+          type="text"
+          formControlName="title"
+          placeholder="Ex. Dépôt de déchets sur la plage"
+        >
+        @if (titleControl.touched && titleControl.hasError('required')) {
+          <small>Le titre est requis.</small>
+        }
+      </label>
+
+      <label>
+        <span>Type de pollution</span>
+        <select formControlName="type">
+          <option value="" disabled>Choisir un type</option>
+          @for (item of types; track item) {
+            <option [value]="item">{{ item }}</option>
+          }
+        </select>
+        @if (typeControl.touched && typeControl.hasError('required')) {
+          <small>Le type est requis.</small>
+        }
+      </label>
+
+      <label class="full-width">
+        <span>Description</span>
+        <textarea
+          formControlName="description"
+          rows="5"
+          placeholder="Décrivez la situation observée"
+        ></textarea>
+        @if (descriptionControl.touched && descriptionControl.hasError('required')) {
+          <small>La description est requise.</small>
+        }
+      </label>
+
+      <label>
+        <span>Date de l’observation</span>
+        <input type="date" formControlName="observationDate">
+        @if (observationDateControl.touched && observationDateControl.hasError('required')) {
+          <small>La date est requise.</small>
+        }
+        @if (observationDateControl.touched && observationDateControl.hasError('date')) {
+          <small>La date doit être valide.</small>
+        }
+      </label>
+
+      <label>
+        <span>Lieu</span>
+        <input
+          type="text"
+          formControlName="location"
+          placeholder="Ex. Port de la Rochelle"
+        >
+        @if (locationControl.touched && locationControl.hasError('required')) {
+          <small>Le lieu est requis.</small>
+        }
+      </label>
+
+      <div class="coordonnees-row">
+        <label class="coord-field">
+          <span>Latitude</span>
+          <input
+            type="number"
+            formControlName="latitude"
+            step="any"
+            placeholder="46.1603"
+          >
+          @if (latitudeControl.touched && latitudeControl.hasError('required')) {
+            <small>La latitude est requise.</small>
+          }
+          @if (latitudeControl.touched && latitudeControl.hasError('number')) {
+            <small>La latitude doit être un nombre valide.</small>
+          }
+        </label>
+
+        <label class="coord-field">
+          <span>Longitude</span>
+          <input
+            type="number"
+            formControlName="longitude"
+            step="any"
+            placeholder="-1.1511"
+          >
+          @if (longitudeControl.touched && longitudeControl.hasError('required')) {
+            <small>La longitude est requise.</small>
+          }
+          @if (longitudeControl.touched && longitudeControl.hasError('number')) {
+            <small>La longitude doit être un nombre valide.</small>
+          }
+        </label>
+      </div>
+
+      <label class="full-width">
+        <span>Photo (URL)</span>
+        <input
+          type="url"
+          formControlName="photoUrl"
+          placeholder="https://..."
+        >
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Déclarer</button>
+    </div>
+  </form>
+</article>
+
