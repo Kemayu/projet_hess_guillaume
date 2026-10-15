@@ -1,0 +1,37 @@
+<section class="signup-container">
+  <h2>Créer un compte</h2>
+
+  <form (ngSubmit)="onSignup()" #signupForm="ngForm">
+    <label for="name">Nom</label>
+    <input
+      id="name"
+      name="name"
+      [(ngModel)]="name"
+      required
+    />
+
+    <label for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      [(ngModel)]="email"
+      required
+    />
+
+    <label for="password">Mot de passe</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="password"
+      required
+    />
+
+    <button type="submit" [disabled]="signupForm.invalid || loading">
+      {{ loading ? 'Inscription...' : "S'inscrire" }}
+    </button>
+  </form>
+
+  <p>{{ message }}</p>
+</section>

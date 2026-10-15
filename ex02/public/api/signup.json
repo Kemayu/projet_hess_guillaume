@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "message": "Inscription réussie !",
+  "user": {
+    "id": 1,
+    "name": "Guillaume",
+    "email": "guillaume@example.com"
+  }
+}
