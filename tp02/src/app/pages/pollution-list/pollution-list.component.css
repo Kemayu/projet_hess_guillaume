@@ -1,0 +1,20 @@
+.page-content { display: grid; gap: 24px; }
+.section-heading, .pollution-item, .filters { display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+.section-heading h1 { margin: 4px 0 0; }
+.eyebrow { margin: 0; color: #b35c1d; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.count, .message { padding: 10px 14px; border-radius: 10px; background: #dcece1; color: #24573d; }
+.layout { display: grid; grid-template-columns: minmax(280px, .8fr) 1.2fr; gap: 24px; align-items: start; }
+.results { display: grid; gap: 14px; }
+.filters { align-items: end; padding: 16px; border-radius: 16px; background: rgba(255,255,255,.76); }
+label { display: grid; gap: 6px; color: #52675d; font-size: .9rem; font-weight: 700; }
+input, select { min-width: 0; padding: 10px 12px; border: 1px solid #c8d7ce; border-radius: 8px; background: #fff; font: inherit; }
+.pollution-item { align-items: start; padding: 18px; border: 1px solid rgba(23,49,39,.12); border-radius: 16px; background: rgba(255,255,255,.82); }
+.pollution-item h2 { margin: 6px 0; font-size: 1.1rem; }
+.pollution-item p:not(.eyebrow) { margin: 0; color: #5e7369; }
+.item-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: end; }
+a, button { cursor: pointer; font: inherit; }
+a { color: #1e7a4d; font-weight: 700; }
+button { padding: 9px 12px; border: 0; border-radius: 8px; background: #1e7a4d; color: white; }
+.danger { background: #a94438; }
+.empty { padding: 28px; text-align: center; color: #5e7369; }
+@media (max-width: 850px) { .layout { grid-template-columns: 1fr; } .filters { align-items: stretch; flex-direction: column; } .pollution-item { flex-direction: column; } .item-actions { justify-content: start; } }

@@ -1,0 +1,55 @@
+<section class="page-content">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Gestion des signalements</p>
+      <h1>Pollutions déclarées</h1>
+    </div>
+    <span class="count">{{ filteredPollutions().length }} résultat(s)</span>
+  </div>
+
+  @if (message()) {
+    <p class="message" role="status">{{ message() }}</p>
+  }
+
+  <div class="layout">
+    <app-pollution-form (submitted)="create($event)"></app-pollution-form>
+
+    <div class="results">
+      <div class="filters" aria-label="Filtres">
+        <label>Recherche
+          <input type="search" [value]="search()" (input)="search.set($any($event.target).value)" placeholder="Titre, description...">
+        </label>
+        <label>Type
+          <select [value]="selectedType()" (change)="selectedType.set($any($event.target).value)">
+            <option value="">Tous les types</option>
+            @for (type of types(); track type) { <option [value]="type">{{ type }}</option> }
+          </select>
+        </label>
+        <label>Lieu
+          <select [value]="selectedLocation()" (change)="selectedLocation.set($any($event.target).value)">
+            <option value="">Tous les lieux</option>
+            @for (location of locations(); track location) { <option [value]="location">{{ location }}</option> }
+          </select>
+        </label>
+      </div>
+
+      @for (pollution of filteredPollutions(); track pollution.id) {
+        <article class="pollution-item">
+          <div>
+            <p class="eyebrow">{{ pollution.type }} · {{ pollution.observationDate }}</p>
+            <h2>{{ pollution.title }}</h2>
+            <p>{{ pollution.location }} — {{ pollution.description }}</p>
+          </div>
+          <div class="item-actions">
+            @if (pollution.id !== undefined) {
+              <a [routerLink]="['/pollutions', pollution.id]">Détail / modifier</a>
+              <button type="button" class="danger" (click)="remove(pollution.id)">Supprimer</button>
+            }
+          </div>
+        </article>
+      } @empty {
+        <p class="empty">Aucune pollution ne correspond aux filtres.</p>
+      }
+    </div>
+  </div>
+</section>
