@@ -1,0 +1,16 @@
+{
+  "pollutions": [
+    {
+      "title": "kk",
+      "type": "Chimique",
+      "description": "kk",
+      "observationDate": "2026-10-02",
+      "location": "kk",
+      "latitude": 2,
+      "longitude": -3,
+      "photoUrl": "",
+      "id": "_6GcRQ8VKfQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

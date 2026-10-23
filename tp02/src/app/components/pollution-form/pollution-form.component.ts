@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { PollutionDeclaration } from '../../models/pollution-declaration.model';
+import { PollutionPayload, PollutionDeclaration } from '../../models/pollution-declaration.model';
 
 @Component({
   selector: 'app-pollution-form',
@@ -10,6 +10,7 @@ import { PollutionDeclaration } from '../../models/pollution-declaration.model';
   styleUrl: './pollution-form.component.css'
 })
 export class PollutionFormComponent {
+  @Input() initialValue: PollutionDeclaration | null = null;
   private readonly pollutionTypes = ['Plastique', 'Chimique', 'Dépôt sauvage', 'Eau', 'Air', 'Autre'];
   private readonly formBuilder = inject(FormBuilder);
 
@@ -86,7 +87,13 @@ export class PollutionFormComponent {
   });
     
 
-  @Output() submitted = new EventEmitter<PollutionDeclaration>();
+  @Output() submitted = new EventEmitter<PollutionPayload>();
+
+  ngOnInit(): void {
+    if (this.initialValue) {
+      this.form.patchValue(this.initialValue);
+    }
+  }
 
   get types(): string[] {
     return this.pollutionTypes;

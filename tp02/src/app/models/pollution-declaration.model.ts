@@ -1,4 +1,5 @@
 export interface PollutionDeclaration {
+  id?: number | string;
   title: string;
   type: string;
   description: string;
@@ -8,3 +9,5 @@ export interface PollutionDeclaration {
   longitude: number;
   photoUrl?: string;
 }
+
+export type PollutionPayload = Omit<PollutionDeclaration, 'id'>;

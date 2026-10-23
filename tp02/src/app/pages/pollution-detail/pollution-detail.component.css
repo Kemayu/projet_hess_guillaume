@@ -1,0 +1,7 @@
+.detail-page { display: grid; gap: 20px; max-width: 760px; margin: 0 auto; }
+.detail-page > a { color: #1e7a4d; font-weight: 700; text-decoration: none; }
+.heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
+.heading h1 { margin: 4px 0 0; }
+.heading > span, .message { padding: 10px 14px; border-radius: 10px; background: #dcece1; color: #24573d; }
+.eyebrow { margin: 0; color: #b35c1d; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.message { margin: 0; }

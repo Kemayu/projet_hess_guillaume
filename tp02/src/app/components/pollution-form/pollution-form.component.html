@@ -136,7 +136,10 @@
             (JPEG, PNG, GIF, WebP, SVG, BMP ou AVIF).
           </small>
         }
-    </label>
+        @if (photoUrlControl.touched && photoUrlControl.hasError('required')) {
+          <small class="error">L'URL de la photo est requise.</small>
+        }
+      </label>
     </div>
 
     <div class="actions">
@@ -144,4 +147,3 @@
     </div>
   </form>
 </article>
-

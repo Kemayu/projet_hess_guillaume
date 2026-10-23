@@ -1,0 +1,13 @@
+<section class="detail-page">
+  <a routerLink="/">← Retour à la liste</a>
+  @if (pollution(); as current) {
+    <div class="heading">
+      <div><p class="eyebrow">Détail du signalement</p><h1>{{ current.title }}</h1></div>
+      <span>{{ current.type }}</span>
+    </div>
+    @if (message()) { <p class="message" role="status">{{ message() }}</p> }
+    <app-pollution-form [initialValue]="current" (submitted)="update($event)"></app-pollution-form>
+  } @else {
+    <p>Chargement du signalement...</p>
+  }
+</section>
