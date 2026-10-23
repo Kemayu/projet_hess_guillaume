@@ -79,12 +79,21 @@
             step="any"
             placeholder="46.1603"
           >
-          @if (latitudeControl.touched && latitudeControl.hasError('required')) {
-            <small>La latitude est requise.</small>
-          }
-          @if (latitudeControl.touched && latitudeControl.hasError('number')) {
-            <small>La latitude doit être un nombre valide.</small>
-          }
+         @if (latitudeControl.touched && latitudeControl.hasError('required')) {
+          <small class="error">La latitude est requise.</small>
+        }
+
+        @if (latitudeControl.touched && latitudeControl.hasError('number')) {
+          <small class="error">La latitude doit être un nombre valide.</small>
+        }
+
+        @if (latitudeControl.touched && latitudeControl.hasError('min')) {
+          <small class="error">La latitude doit être supérieure ou égale à -90.</small>
+        }
+
+        @if (latitudeControl.touched && latitudeControl.hasError('max')) {
+          <small class="error">La latitude doit être inférieure ou égale à 90.</small>
+        }
         </label>
 
         <label class="coord-field">
@@ -96,10 +105,19 @@
             placeholder="-1.1511"
           >
           @if (longitudeControl.touched && longitudeControl.hasError('required')) {
-            <small>La longitude est requise.</small>
+            <small class="error">La longitude est requise.</small>
           }
+
           @if (longitudeControl.touched && longitudeControl.hasError('number')) {
-            <small>La longitude doit être un nombre valide.</small>
+            <small class="error">La longitude doit être un nombre valide.</small>
+          }
+
+          @if (longitudeControl.touched && longitudeControl.hasError('min')) {
+            <small class="error">La longitude doit être supérieure ou égale à -180.</small>
+          }
+
+          @if (longitudeControl.touched && longitudeControl.hasError('max')) {
+            <small class="error">La longitude doit être inférieure ou égale à 180.</small>
           }
         </label>
       </div>
@@ -109,9 +127,16 @@
         <input
           type="url"
           formControlName="photoUrl"
-          placeholder="https://..."
+          placeholder="https://exemple.com/photo.jpg"
         >
-      </label>
+
+        @if (photoUrlControl.touched && photoUrlControl.hasError('imageUrl')) {
+          <small class="error">
+            L'URL doit pointer vers une image valide
+            (JPEG, PNG, GIF, WebP, SVG, BMP ou AVIF).
+          </small>
+        }
+    </label>
     </div>
 
     <div class="actions">

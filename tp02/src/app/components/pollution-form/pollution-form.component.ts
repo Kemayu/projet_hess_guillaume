@@ -29,16 +29,62 @@ export class PollutionFormComponent {
     return Number.isNaN(Date.parse(control.value)) ? { date: true } : null;
   };
 
+  get photoUrlControl() {
+  return this.form.controls.photoUrl;
+}
+
+  private readonly imageUrlValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const value = control.value;
+
+    // Le champ reste facultatif
+    if (!value) {
+      return null;
+    }
+
+    const imageUrlRegex =
+      /^https?:\/\/[^\s?#]+\.(?:jpe?g|png|gif|webp|svg|bmp|avif)(?:[?#][^\s]*)?$/i;
+
+    return imageUrlRegex.test(value)
+      ? null
+      : { imageUrl: true };
+  };
+    
+
   readonly form = this.formBuilder.group({
     title: ['', Validators.required],
     type: ['', Validators.required],
     description: ['', Validators.required],
-    observationDate: ['', [Validators.required, this.dateValidator]],
+    observationDate: [
+      '',
+      [Validators.required, this.dateValidator]
+    ],
     location: ['', Validators.required],
-    latitude: [null as number | null, [Validators.required, this.numberValidator]],
-    longitude: [null as number | null, [Validators.required, this.numberValidator]],
-    photoUrl: ['']
+
+    latitude: [
+      null as number | null,
+      [
+        Validators.required,
+        this.numberValidator,
+        Validators.min(-90),
+        Validators.max(90)
+      ]
+    ],
+
+    longitude: [
+      null as number | null,
+      [
+        Validators.required,
+        this.numberValidator,
+        Validators.min(-180),
+        Validators.max(180)
+      ]
+    ],
+
+    photoUrl: ['', this.imageUrlValidator]
   });
+    
 
   @Output() submitted = new EventEmitter<PollutionDeclaration>();
 
