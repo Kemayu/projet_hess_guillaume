@@ -11,7 +11,7 @@ services:
     runtime: node
     plan: free
     rootDir: api
-    buildCommand: npm ci && npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /health
     envVars:
@@ -25,7 +25,7 @@ services:
   - type: web
     name: tp02-front
     runtime: static
-    buildCommand: npm ci && npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: dist/tp02/browser
     routes:
       - type: rewrite
