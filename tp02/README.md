@@ -58,7 +58,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## API mockée
+## API PostgreSQL
 
 L'application utilise `PollutionService` pour appeler les routes CRUD suivantes :
 
@@ -68,17 +68,32 @@ L'application utilise `PollutionService` pour appeler les routes CRUD suivantes 
 - `PUT /pollutions/:id`
 - `DELETE /pollutions/:id`
 
-En développement, l'URL est `http://localhost:3000` et en production elle est
-configurée dans `src/environments/environment.prod.ts`. Un backend mocké
-compatible (json-server est inclus dans les dépendances de développement)
-expose une ressource `pollutions` sur cette URL. Pour le démarrer :
+En développement, l'API est disponible sur `http://localhost:3000` et utilise
+PostgreSQL avec `DATABASE_URL` (ou les variables `DB_HOST`, `DB_PORT`,
+`DB_USER`, `DB_PASSWORD` et `DB_NAME`). Pour démarrer le front et l'API :
 
 ```bash
-npm run mock-api
+# terminal 1
+cd api && npm install && npm run dev
+
+# terminal 2
+npm start
 ```
 
-Les créations, modifications et suppressions sont enregistrées dans
-`db.json`. Il faut donc lancer ce serveur en parallèle de `ng serve`.
+L'API expose les routes CRUD `GET`, `POST`, `PUT` et `DELETE` sous
+`/pollutions`. Les données sont stockées dans PostgreSQL.
+
+## Déploiement Render
+
+Le fichier `render.yaml` définit les trois ressources Render :
+
+- `tp02-db` : base PostgreSQL ;
+- `tp02-back` : API Node/Express ;
+- `tp02-front` : site statique Angular.
+
+Dans Render, créer un Blueprint à partir du dépôt contenant `render.yaml`.
+L'API reçoit automatiquement la chaîne de connexion de la base et le front
+utilise `https://tp02-back.onrender.com` en production.
 
 Les réponses `Observable` du service sont converties en signaux avec
 `toSignal` dans les pages de liste et de détail. La page principale propose la

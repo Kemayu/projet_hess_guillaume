@@ -27,7 +27,7 @@ export class PollutionListComponent {
         this.service.getAll().pipe(
           catchError(() => {
             this.message.set(
-              'Impossible de récupérer les pollutions. Vérifiez que le serveur mock est démarré sur http://localhost:3000.'
+              'Impossible de récupérer les pollutions. Vérifiez que l’API est démarrée.'
             );
             return of([]);
           })

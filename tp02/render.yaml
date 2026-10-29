@@ -1,0 +1,31 @@
+databases:
+  - name: tp02-db
+    databaseName: tp02
+    user: tp02
+    plan: free
+
+services:
+  - type: web
+    name: tp02-back
+    runtime: node
+    rootDir: api
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tp02-db
+          property: connectionString
+      - key: CORS_ORIGIN
+        value: https://tp02-front.onrender.com
+
+  - type: web
+    name: tp02-front
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/tp02/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
