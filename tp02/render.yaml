@@ -6,6 +6,7 @@ databases:
 
 services:
   - type: web
+    plan: free 
     name: tp02-back
     runtime: node
     rootDir: api
@@ -21,6 +22,7 @@ services:
         value: https://tp02-front.onrender.com
 
   - type: web
+    plan: free 
     name: tp02-front
     runtime: static
     buildCommand: npm ci && npm run build
