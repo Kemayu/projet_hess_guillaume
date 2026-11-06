@@ -7,7 +7,7 @@ export interface PollutionDeclaration {
   location: string;
   latitude: number;
   longitude: number;
-  photoUrl?: string;
+  photoUrl?: string | null;
 }
 
 export type PollutionPayload = Omit<PollutionDeclaration, 'id'>;

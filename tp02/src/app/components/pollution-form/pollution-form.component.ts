@@ -121,13 +121,14 @@ export class PollutionFormComponent {
       location: string;
       latitude: number | null;
       longitude: number | null;
-      photoUrl: string;
+      photoUrl: string | null;
     };
 
     this.submitted.emit({
       ...raw,
       latitude: Number(raw.latitude),
-      longitude: Number(raw.longitude)
+      longitude: Number(raw.longitude),
+      photoUrl: raw.photoUrl || null
     });
 
     this.form.reset({
