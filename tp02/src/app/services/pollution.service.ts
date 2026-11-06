@@ -7,7 +7,7 @@ import { PollutionDeclaration, PollutionPayload } from '../models/pollution-decl
 @Injectable({ providedIn: 'root' })
 export class PollutionService {
   private readonly http = inject(HttpClient);
-  private readonly endpoint = `${environment.apiUrl}/pollutions`;
+  private readonly endpoint = `${environment.apiUrl}/api/pollutions`;
 
   getAll(): Observable<PollutionDeclaration[]> {
     return this.http.get<PollutionDeclaration[]>(this.endpoint);

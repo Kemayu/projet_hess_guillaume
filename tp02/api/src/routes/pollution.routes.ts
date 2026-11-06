@@ -10,5 +10,5 @@ export default (app: Application): void => {
   router.put("/:id", pollutionController.update);
   router.delete("/:id", pollutionController.remove);
 
-  app.use("/pollutions", router);
+  app.use("/api/pollutions", router);
 };
