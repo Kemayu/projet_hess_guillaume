@@ -60,13 +60,15 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## API PostgreSQL
 
-L'application utilise `PollutionService` pour appeler les routes CRUD suivantes :
+L'application utilise `PollutionService` et `UserService` pour appeler les routes REST suivantes :
 
-- `GET /pollutions`
-- `GET /pollutions/:id`
-- `POST /pollutions`
-- `PUT /pollutions/:id`
-- `DELETE /pollutions/:id`
+- `GET /api/pollutions`
+- `GET /api/pollutions/:id`
+- `POST /api/pollutions`
+- `PUT /api/pollutions/:id`
+- `DELETE /api/pollutions/:id`
+- `GET /api/users`
+- `POST /api/users`
 
 En développement, l'API est disponible sur `http://localhost:3000` et utilise
 PostgreSQL avec `DATABASE_URL` (ou les variables `DB_HOST`, `DB_PORT`,
@@ -80,8 +82,8 @@ cd api && npm install && npm run dev
 npm start
 ```
 
-L'API expose les routes CRUD `GET`, `POST`, `PUT` et `DELETE` sous
-`/pollutions`. Les données sont stockées dans PostgreSQL.
+Les données sont stockées dans PostgreSQL. Les mots de passe des utilisateurs
+sont hachés (scrypt) et ne sont jamais renvoyés par l'API.
 
 ## Déploiement Render
 
