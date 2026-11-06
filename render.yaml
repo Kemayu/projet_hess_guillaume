@@ -29,7 +29,7 @@ services:
     runtime: static
     rootDir: tp04/front
     buildCommand: npm install && npm run build
-    staticPublishPath: dist/tp02/browser
+    staticPublishPath: dist/tp04/browser
     envVars:
       - key: NODE_VERSION
         value: "22"

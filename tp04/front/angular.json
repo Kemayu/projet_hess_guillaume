@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "tp02": {
+    "tp04": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "tp02:build:production"
+              "buildTarget": "tp04:build:production"
             },
             "development": {
-              "buildTarget": "tp02:build:development"
+              "buildTarget": "tp04:build:development"
             }
           },
           "defaultConfiguration": "development"
