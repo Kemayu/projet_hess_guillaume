@@ -1,4 +1,9 @@
-# TP03 — Gestion des pollutions
+# TP04 — Gestion des pollutions
+
+Le projet est découpé en deux dossiers :
+
+- `front/` : application Angular ;
+- `api/` : API Node/Express + PostgreSQL.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
 
@@ -79,7 +84,7 @@ PostgreSQL avec `DATABASE_URL` (ou les variables `DB_HOST`, `DB_PORT`,
 cd api && npm install && npm run dev
 
 # terminal 2
-npm start
+cd front && npm install && npm start
 ```
 
 Les données sont stockées dans PostgreSQL. Les mots de passe des utilisateurs

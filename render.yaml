@@ -27,7 +27,7 @@ services:
   - type: web
     name: tp02-front
     runtime: static
-    rootDir: tp04
+    rootDir: tp04/front
     buildCommand: npm install && npm run build
     staticPublishPath: dist/tp02/browser
     envVars:
