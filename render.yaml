@@ -10,11 +10,13 @@ services:
     name: tp02-back
     runtime: node
     plan: free
-    rootDir: api
+    rootDir: tp02/api
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /health
     envVars:
+      - key: NODE_VERSION
+        value: "22"
       - key: DATABASE_URL
         fromDatabase:
           name: tp02-db
@@ -25,8 +27,12 @@ services:
   - type: web
     name: tp02-front
     runtime: static
+    rootDir: tp02
     buildCommand: npm install && npm run build
     staticPublishPath: dist/tp02/browser
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
     routes:
       - type: rewrite
         source: /*
