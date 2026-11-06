@@ -94,13 +94,13 @@ sont hachés (scrypt) et ne sont jamais renvoyés par l'API.
 
 Le fichier `render.yaml` définit les trois ressources Render :
 
-- `tp02-db` : base PostgreSQL ;
-- `tp02-back` : API Node/Express ;
-- `tp02-front` : site statique Angular.
+- `tp04-db` : base PostgreSQL ;
+- `tp04-back` : API Node/Express ;
+- `tp04-front` : site statique Angular.
 
 Dans Render, créer un Blueprint à partir du dépôt contenant `render.yaml`.
 L'API reçoit automatiquement la chaîne de connexion de la base et le front
-utilise `https://tp02-back.onrender.com` en production.
+utilise `https://tp04-back.onrender.com` en production.
 
 Les réponses `Observable` du service sont converties en signaux avec
 `toSignal` dans les pages de liste et de détail. La page principale propose la
