@@ -5,6 +5,9 @@
       <div><p class="eyebrow">Détail du signalement</p><h1>{{ current.title }}</h1></div>
       <span>{{ current.type }}</span>
     </div>
+    <a class="map-link" [href]="mapUrl(current.latitude, current.longitude)" target="_blank" rel="noopener noreferrer">
+      📍 {{ current.location }} — voir sur OpenStreetMap
+    </a>
     @if (message()) { <p class="message" role="status">{{ message() }}</p> }
     <app-pollution-form [initialValue]="current" (submitted)="update($event)"></app-pollution-form>
   } @else {

@@ -5,3 +5,4 @@
 .heading > span, .message { padding: 10px 14px; border-radius: 10px; background: #dcece1; color: #24573d; }
 .eyebrow { margin: 0; color: #b35c1d; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .message { margin: 0; }
+.map-link { justify-self: start; color: #1e7a4d; font-weight: 700; }

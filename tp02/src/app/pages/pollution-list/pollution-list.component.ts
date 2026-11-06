@@ -5,6 +5,7 @@ import { catchError, of, Subject, startWith, switchMap } from 'rxjs';
 import { PollutionFormComponent } from '../../components/pollution-form/pollution-form.component';
 import { PollutionPayload } from '../../models/pollution-declaration.model';
 import { PollutionService } from '../../services/pollution.service';
+import { openStreetMapUrl } from '../../utils/open-street-map';
 
 @Component({
   selector: 'app-pollution-list',
@@ -16,6 +17,7 @@ import { PollutionService } from '../../services/pollution.service';
 export class PollutionListComponent {
   private readonly service = inject(PollutionService);
   private readonly refresh$ = new Subject<void>();
+  readonly mapUrl = openStreetMapUrl;
   readonly search = signal('');
   readonly selectedType = signal('');
   readonly selectedLocation = signal('');

@@ -5,6 +5,7 @@ import { map, switchMap } from 'rxjs';
 import { PollutionFormComponent } from '../../components/pollution-form/pollution-form.component';
 import { PollutionPayload } from '../../models/pollution-declaration.model';
 import { PollutionService } from '../../services/pollution.service';
+import { openStreetMapUrl } from '../../utils/open-street-map';
 
 @Component({
   selector: 'app-pollution-detail',
@@ -16,6 +17,7 @@ import { PollutionService } from '../../services/pollution.service';
 export class PollutionDetailComponent {
   private readonly service = inject(PollutionService);
   private readonly route = inject(ActivatedRoute);
+  readonly mapUrl = openStreetMapUrl;
   readonly message = signal('');
   readonly pollution = toSignal(
     this.route.paramMap.pipe(
