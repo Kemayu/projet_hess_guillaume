@@ -15,5 +15,12 @@ export const routes: Routes = [
         ({ PollutionDetailComponent }) => PollutionDetailComponent
       )
   },
+  {
+    path: 'users',
+    loadComponent: () =>
+      import('./pages/user-list/user-list.component').then(
+        ({ UserListComponent }) => UserListComponent
+      )
+  },
   { path: '**', redirectTo: '' }
 ];
