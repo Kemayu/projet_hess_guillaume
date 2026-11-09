@@ -1,0 +1,11 @@
+<main class="page-shell">
+  <header class="hero">
+    <a routerLink="/" class="brand">Sentinelle Pollution</a>
+    <p class="intro">Déclarez, consultez et suivez les pollutions observées.</p>
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Pollutions</a>
+      <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
+    </nav>
+  </header>
+  <router-outlet></router-outlet>
+</main>

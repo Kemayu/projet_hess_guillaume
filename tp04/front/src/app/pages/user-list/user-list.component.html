@@ -1,0 +1,29 @@
+<section class="page-content">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Gestion des comptes</p>
+      <h1>Utilisateurs</h1>
+    </div>
+    <span class="count">{{ users().length }} utilisateur(s)</span>
+  </div>
+
+  @if (message()) {
+    <p class="message" role="status">{{ message() }}</p>
+  }
+
+  <div class="layout">
+    <app-user-form (submitted)="create($event)"></app-user-form>
+
+    <div class="results">
+      @for (user of users(); track user.id) {
+        <article class="user-item">
+          <p class="eyebrow">{{ user.email }}</p>
+          <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+          <p>{{ user.address }}</p>
+        </article>
+      } @empty {
+        <p class="empty">Aucun utilisateur pour le moment.</p>
+      }
+    </div>
+  </div>
+</section>
