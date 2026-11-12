@@ -39,6 +39,12 @@ const getPayload = (body: unknown): PollutionCreationAttributes => {
     throw new Error("Les coordonnées sont invalides.");
   }
 
+  const dangerIndex = Number(input.dangerIndex);
+  if (input.dangerIndex === undefined || input.dangerIndex === null || input.dangerIndex === "" ||
+      !Number.isInteger(dangerIndex) || dangerIndex < 0) {
+    throw new Error("L'indice de dangerosité doit être un entier positif.");
+  }
+
   return {
     title: input.title as string,
     type: input.type as string,
@@ -47,6 +53,7 @@ const getPayload = (body: unknown): PollutionCreationAttributes => {
     location: input.location as string,
     latitude,
     longitude,
+    dangerIndex,
     photoUrl: typeof input.photoUrl === "string" && input.photoUrl !== "" ? input.photoUrl : null
   };
 };

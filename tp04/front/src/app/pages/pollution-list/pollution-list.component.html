@@ -38,6 +38,7 @@
           <div>
             <p class="eyebrow">{{ pollution.type }} · {{ pollution.observationDate }}</p>
             <h2>{{ pollution.title }}</h2>
+            <span class="level-badge" [appHighlightPollution]="pollution.dangerIndex">{{ pollution.dangerIndex | pollutionLevel }} · {{ pollution.dangerIndex }}</span>
             <p>{{ pollution.location }} — {{ pollution.description }}</p>
           </div>
           <div class="item-actions">

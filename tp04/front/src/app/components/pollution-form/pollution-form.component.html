@@ -123,6 +123,28 @@
       </div>
 
       <label class="full-width">
+        <span>Indice de dangerosité</span>
+        <input
+          type="number"
+          formControlName="dangerIndex"
+          min="0"
+          step="1"
+          placeholder="Ex. 35"
+        >
+        @if (dangerIndexControl.valid) {
+          <span class="level-preview" [appHighlightPollution]="dangerIndexControl.value">
+            Niveau : {{ dangerIndexControl.value | pollutionLevel }}
+          </span>
+        }
+        @if (dangerIndexControl.touched && dangerIndexControl.hasError('required')) {
+          <small class="error">L'indice de dangerosité est requis.</small>
+        }
+        @if (dangerIndexControl.touched && (dangerIndexControl.hasError('min') || dangerIndexControl.hasError('pattern'))) {
+          <small class="error">L'indice doit être un nombre entier positif.</small>
+        }
+      </label>
+
+      <label class="full-width">
         <span>Photo (URL)</span>
         <input
           type="url"

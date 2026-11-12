@@ -112,3 +112,12 @@ button:hover {
   transform: translateY(-1px);
 }
 
+
+.level-preview {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #173127;
+}

@@ -9,6 +9,7 @@ export interface PollutionAttributes {
   location: string;
   latitude: number;
   longitude: number;
+  dangerIndex: number;
   photoUrl?: string | null;
 }
 
@@ -61,6 +62,11 @@ export default function definePollutions(
       longitude: {
         type: DataTypes.DECIMAL(10, 7),
         allowNull: false
+      },
+      dangerIndex: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
       },
       photoUrl: {
         type: DataTypes.STRING,

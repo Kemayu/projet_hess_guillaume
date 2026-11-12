@@ -4,13 +4,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, Subject, startWith, switchMap } from 'rxjs';
 import { PollutionFormComponent } from '../../components/pollution-form/pollution-form.component';
 import { PollutionPayload } from '../../models/pollution-declaration.model';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution.directive';
+import { PollutionLevelPipe } from '../../pipes/pollution-level.pipe';
 import { PollutionService } from '../../services/pollution.service';
 import { openStreetMapUrl } from '../../utils/open-street-map';
 
 @Component({
   selector: 'app-pollution-list',
   standalone: true,
-  imports: [PollutionFormComponent, RouterLink],
+  imports: [PollutionFormComponent, RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
   templateUrl: './pollution-list.component.html',
   styleUrl: './pollution-list.component.css'
 })

@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PollutionPayload, PollutionDeclaration } from '../../models/pollution-declaration.model';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution.directive';
+import { PollutionLevelPipe } from '../../pipes/pollution-level.pipe';
 
 @Component({
   selector: 'app-pollution-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PollutionLevelPipe, HighlightPollutionDirective],
   templateUrl: './pollution-form.component.html',
   styleUrl: './pollution-form.component.css'
 })
@@ -83,6 +85,15 @@ export class PollutionFormComponent {
       ]
     ],
 
+    dangerIndex: [
+      null as number | null,
+      [
+        Validators.required,
+        Validators.min(0),
+        Validators.pattern(/^\d+$/)
+      ]
+    ],
+
     photoUrl: ['', this.imageUrlValidator]
   });
     
@@ -106,6 +117,7 @@ export class PollutionFormComponent {
   get locationControl() { return this.form.controls.location; }
   get latitudeControl() { return this.form.controls.latitude; }
   get longitudeControl() { return this.form.controls.longitude; }
+  get dangerIndexControl() { return this.form.controls.dangerIndex; }
 
   submit(): void {
     if (this.form.invalid) {
@@ -121,6 +133,7 @@ export class PollutionFormComponent {
       location: string;
       latitude: number | null;
       longitude: number | null;
+      dangerIndex: number | null;
       photoUrl: string | null;
     };
 
@@ -128,6 +141,7 @@ export class PollutionFormComponent {
       ...raw,
       latitude: Number(raw.latitude),
       longitude: Number(raw.longitude),
+      dangerIndex: Number(raw.dangerIndex),
       photoUrl: raw.photoUrl || null
     });
 
@@ -139,6 +153,7 @@ export class PollutionFormComponent {
       location: '',
       latitude: null,
       longitude: null,
+      dangerIndex: null,
       photoUrl: ''
     });
   }

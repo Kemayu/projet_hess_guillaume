@@ -7,6 +7,7 @@ export interface PollutionDeclaration {
   location: string;
   latitude: number;
   longitude: number;
+  dangerIndex: number;
   photoUrl?: string | null;
 }
 

@@ -4,6 +4,7 @@
     <div class="heading">
       <div><p class="eyebrow">Détail du signalement</p><h1>{{ current.title }}</h1></div>
       <span>{{ current.type }}</span>
+      <span class="level-badge" [appHighlightPollution]="current.dangerIndex">{{ current.dangerIndex | pollutionLevel }} · {{ current.dangerIndex }}</span>
     </div>
     <a class="map-link" [href]="mapUrl(current.latitude, current.longitude)" target="_blank" rel="noopener noreferrer">
       📍 {{ current.location }} — voir sur OpenStreetMap

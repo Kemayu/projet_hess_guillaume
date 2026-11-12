@@ -6,3 +6,4 @@
 .eyebrow { margin: 0; color: #b35c1d; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .message { margin: 0; }
 .map-link { justify-self: start; color: #1e7a4d; font-weight: 700; }
+.level-badge { display: inline-block; padding: 4px 10px; border-radius: 999px; color: #173127; font-size: .8rem; font-weight: 700; }

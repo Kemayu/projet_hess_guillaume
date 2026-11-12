@@ -39,7 +39,8 @@ const HOST = "0.0.0.0";
 const start = async (): Promise<void> => {
   try {
     await db.sequelize.authenticate();
-    await db.sequelize.sync();
+    // alter : ajoute les nouvelles colonnes (ex. dangerIndex) aux tables existantes
+    await db.sequelize.sync({ alter: true });
     console.log("Database connected and synchronized.");
     app.listen(PORT, HOST, () => {
       console.log(`Server is running on http://${HOST}:${PORT}.`);

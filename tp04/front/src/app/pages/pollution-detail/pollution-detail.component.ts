@@ -4,13 +4,15 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { PollutionFormComponent } from '../../components/pollution-form/pollution-form.component';
 import { PollutionPayload } from '../../models/pollution-declaration.model';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution.directive';
+import { PollutionLevelPipe } from '../../pipes/pollution-level.pipe';
 import { PollutionService } from '../../services/pollution.service';
 import { openStreetMapUrl } from '../../utils/open-street-map';
 
 @Component({
   selector: 'app-pollution-detail',
   standalone: true,
-  imports: [PollutionFormComponent, RouterLink],
+  imports: [PollutionFormComponent, RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
   templateUrl: './pollution-detail.component.html',
   styleUrl: './pollution-detail.component.css'
 })
