@@ -1,5 +1,5 @@
 import { Directive, computed, input } from '@angular/core';
-import { getPollutionLevel, PollutionLevel } from '../pipes/pollution-level.pipe';
+import { PollutionLevel, pollutionLevel } from '../utils/pollution-level';
 
 const LEVEL_COLORS: Record<PollutionLevel, string> = {
   Faible: '#c8f0c8',     // vert clair
@@ -10,7 +10,6 @@ const LEVEL_COLORS: Record<PollutionLevel, string> = {
 
 @Directive({
   selector: '[appHighlightPollution]',
-  standalone: true,
   host: {
     '[style.backgroundColor]': 'backgroundColor()'
   }
@@ -19,10 +18,7 @@ export class HighlightPollutionDirective {
   readonly appHighlightPollution = input<number | null | undefined>();
 
   readonly backgroundColor = computed(() => {
-    const dangerIndex = this.appHighlightPollution();
-    if (dangerIndex === null || dangerIndex === undefined || !Number.isFinite(Number(dangerIndex))) {
-      return null;
-    }
-    return LEVEL_COLORS[getPollutionLevel(Number(dangerIndex))];
+    const level = pollutionLevel(this.appHighlightPollution());
+    return level ? LEVEL_COLORS[level] : null;
   });
 }
