@@ -1,0 +1,35 @@
+<article class="card recap-card">
+  <header class="recap-header">
+    <div>
+      <p class="status">Déclaration enregistrée</p>
+      <h2>{{ declaration.title }}</h2>
+    </div>
+    <button type="button" class="secondary-button" (click)="restart.emit()">Nouvelle déclaration</button>
+  </header>
+
+  <div class="recap-layout">
+    <div class="recap-main">
+      <dl>
+        <div><dt>Type</dt><dd>{{ declaration.type }}</dd></div>
+        <div><dt>Description</dt><dd>{{ declaration.description }}</dd></div>
+        <div><dt>Date</dt><dd>{{ declaration.observationDate }}</dd></div>
+        <div><dt>Lieu</dt><dd>{{ declaration.location }}</dd></div>
+        <div><dt>Latitude</dt><dd>{{ declaration.latitude }}</dd></div>
+        <div><dt>Longitude</dt><dd>{{ declaration.longitude }}</dd></div>
+        @if (declaration.photoUrl) {
+          <div><dt>Photo</dt><dd class="photo-link">{{ declaration.photoUrl }}</dd></div>
+        }
+      </dl>
+    </div>
+
+    @if (declaration.photoUrl) {
+      <aside class="recap-media">
+        <img [src]="declaration.photoUrl" [alt]="'Photo de ' + declaration.title">
+      </aside>
+    } @else {
+      <aside class="recap-media empty">
+        <p>Aucune photo n'a été fournie.</p>
+      </aside>
+    }
+  </div>
+</article>

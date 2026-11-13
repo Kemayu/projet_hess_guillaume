@@ -1,0 +1,103 @@
+<article class="card">
+  <header class="card-header">
+    <h2>Nouvel utilisateur</h2>
+  </header>
+
+  <form
+    class="user-form"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    novalidate
+  >
+    <div class="field-grid">
+      <label class="full-width">
+        <span>Email</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Ex. jean.dupont@exemple.fr"
+          autocomplete="email"
+        >
+        @if (emailControl.touched && emailControl.hasError('required')) {
+          <small>L'email est requis.</small>
+        }
+        @if (emailControl.touched && emailControl.hasError('email')) {
+          <small>L'email doit être valide.</small>
+        }
+      </label>
+
+      <label>
+        <span>Nom</span>
+        <input
+          type="text"
+          formControlName="lastName"
+          placeholder="Ex. Dupont"
+          autocomplete="family-name"
+        >
+        @if (lastNameControl.touched && lastNameControl.hasError('required')) {
+          <small>Le nom est requis.</small>
+        }
+      </label>
+
+      <label>
+        <span>Prénom</span>
+        <input
+          type="text"
+          formControlName="firstName"
+          placeholder="Ex. Jean"
+          autocomplete="given-name"
+        >
+        @if (firstNameControl.touched && firstNameControl.hasError('required')) {
+          <small>Le prénom est requis.</small>
+        }
+      </label>
+
+      <label class="full-width">
+        <span>Adresse</span>
+        <input
+          type="text"
+          formControlName="address"
+          placeholder="Ex. 12 rue des Lilas, 17000 La Rochelle"
+          autocomplete="street-address"
+        >
+        @if (addressControl.touched && addressControl.hasError('required')) {
+          <small>L'adresse est requise.</small>
+        }
+      </label>
+
+      <label>
+        <span>Mot de passe</span>
+        <input
+          type="password"
+          formControlName="password"
+          autocomplete="new-password"
+        >
+        @if (passwordControl.touched && passwordControl.hasError('required')) {
+          <small>Le mot de passe est requis.</small>
+        }
+        @if (passwordControl.touched && passwordControl.hasError('minlength')) {
+          <small>Le mot de passe doit contenir au moins {{ passwordMinLength }} caractères.</small>
+        }
+      </label>
+
+      <label>
+        <span>Confirmation du mot de passe</span>
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          autocomplete="new-password"
+        >
+        @if (confirmPasswordControl.touched && confirmPasswordControl.hasError('required')) {
+          <small>La confirmation est requise.</small>
+        }
+        @if (confirmPasswordControl.touched && form.hasError('passwordMismatch')) {
+          <small>Les mots de passe ne correspondent pas.</small>
+        }
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Créer l'utilisateur</button>
+    </div>
+  </form>
+</article>
