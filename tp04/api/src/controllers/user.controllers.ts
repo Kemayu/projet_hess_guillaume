@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { randomBytes, scryptSync } from "crypto";
 import { UniqueConstraintError } from "sequelize";
 import db from "../models";
 import { UserCreationAttributes } from "../models/users.model";
+import { hashPassword } from "../utils/password";
 
 const Users = db.users;
 
@@ -10,13 +10,6 @@ const PASSWORD_MIN_LENGTH = 8;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const fields = ["email", "lastName", "firstName", "address", "password", "confirmPassword"] as const;
-
-// Le mot de passe n'est jamais stocké en clair : sel aléatoire + hash scrypt
-const hashPassword = (password: string): string => {
-  const salt = randomBytes(16).toString("hex");
-  const hash = scryptSync(password, salt, 64).toString("hex");
-  return `${salt}:${hash}`;
-};
 
 const getPayload = (body: unknown): UserCreationAttributes => {
   if (!body || typeof body !== "object") {
@@ -57,7 +50,7 @@ const getPayload = (body: unknown): UserCreationAttributes => {
 export const getAll = async (_req: Request, res: Response): Promise<void> => {
   try {
     const data = await Users.findAll({
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ["password", "refreshTokenHash"] },
       order: [["id", "ASC"]]
     });
     res.status(200).json(data);
@@ -72,7 +65,7 @@ export const getAll = async (_req: Request, res: Response): Promise<void> => {
 export const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await Users.create(getPayload(req.body));
-    const { password: _password, ...data } = user.toJSON();
+    const { password: _password, refreshTokenHash: _hash, ...data } = user.toJSON();
     res.status(201).json(data);
   } catch (err: unknown) {
     if (err instanceof UniqueConstraintError) {

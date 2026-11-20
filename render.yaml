@@ -23,6 +23,10 @@ services:
           property: connectionString
       - key: CORS_ORIGIN
         value: https://tp04-front.onrender.com
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
 
   - type: web
     name: tp04-front

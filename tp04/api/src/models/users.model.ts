@@ -7,6 +7,7 @@ export interface UserAttributes {
   firstName: string;
   address: string;
   password: string;
+  refreshTokenHash?: string | null;
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
@@ -50,6 +51,11 @@ export default function defineUsers(
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      // Hash du refresh token en cours : permet la rotation et la déconnexion
+      refreshTokenHash: {
+        type: DataTypes.STRING,
+        allowNull: true
       }
     },
     {
