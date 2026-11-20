@@ -1,0 +1,4 @@
+.register-page { display: grid; gap: 18px; max-width: 720px; margin: 0 auto; }
+.message { margin: 0; padding: 10px 14px; border-radius: 10px; background: #f6dcd8; color: #a63f2d; }
+.login-link { margin: 0; text-align: center; color: #5e7369; }
+.login-link a { color: #1e7a4d; font-weight: 700; }

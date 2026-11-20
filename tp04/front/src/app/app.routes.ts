@@ -1,31 +1,24 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'pollutions', pathMatch: 'full' },
   {
-    path: '',
-    loadComponent: () =>
-      import('./pages/pollution-list/pollution-list.component').then(
-        ({ PollutionListComponent }) => PollutionListComponent
-      )
+    path: 'pollutions',
+    // Le chunk JS de la feature n'est téléchargé qu'à l'accès à /pollutions
+    loadChildren: () =>
+      import('./features/pollutions/pollution.routes').then((m) => m.POLLUTION_ROUTES)
   },
   {
-    path: 'pollutions/:id',
-    loadComponent: () =>
-      import('./pages/pollution-detail/pollution-detail.component').then(
-        ({ PollutionDetailComponent }) => PollutionDetailComponent
-      )
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES)
   },
   {
     path: 'users',
-    loadComponent: () =>
-      import('./pages/user-list/user-list.component').then(
-        ({ UserListComponent }) => UserListComponent
-      )
+    // canMatch : sans connexion, la feature n'est pas chargée et on est redirigé vers /auth/login
+    canMatch: [authGuard],
+    loadChildren: () => import('./features/users/user.routes').then((m) => m.USER_ROUTES)
   },
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./pages/login/login.component').then(({ LoginComponent }) => LoginComponent)
-  },
-  { path: '**', redirectTo: '' }
+  // Route joker : toute URL inconnue renvoie vers la liste
+  { path: '**', redirectTo: 'pollutions' }
 ];
