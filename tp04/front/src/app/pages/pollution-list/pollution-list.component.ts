@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -6,6 +7,7 @@ import { PollutionFormComponent } from '../../components/pollution-form/pollutio
 import { PollutionPayload } from '../../models/pollution-declaration.model';
 import { HighlightPollutionDirective } from '../../directives/highlight-pollution.directive';
 import { PollutionLevelPipe } from '../../pipes/pollution-level.pipe';
+import { AuthService } from '../../services/auth.service';
 import { PollutionService } from '../../services/pollution.service';
 import { openStreetMapUrl } from '../../utils/open-street-map';
 
@@ -19,6 +21,7 @@ import { openStreetMapUrl } from '../../utils/open-street-map';
 export class PollutionListComponent {
   private readonly service = inject(PollutionService);
   private readonly refresh$ = new Subject<void>();
+  readonly auth = inject(AuthService);
   readonly mapUrl = openStreetMapUrl;
   readonly search = signal('');
   readonly selectedType = signal('');
@@ -61,7 +64,8 @@ export class PollutionListComponent {
         this.message.set('La pollution a été ajoutée.');
         this.refresh$.next();
       },
-      error: () => this.message.set('Impossible d’ajouter la pollution.')
+      error: (err: HttpErrorResponse) =>
+        this.message.set(err.error?.message ?? 'Impossible d’ajouter la pollution.')
     });
   }
 
@@ -74,7 +78,8 @@ export class PollutionListComponent {
         this.message.set('La pollution a été supprimée.');
         this.refresh$.next();
       },
-      error: () => this.message.set('Impossible de supprimer la pollution.')
+      error: (err: HttpErrorResponse) =>
+        this.message.set(err.error?.message ?? 'Impossible de supprimer la pollution.')
     });
   }
 }

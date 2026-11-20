@@ -1,10 +1,12 @@
 <article class="card recap-card">
   <header class="recap-header">
     <div>
-      <p class="status">Déclaration enregistrée</p>
-      <h2>{{ declaration.title }}</h2>
+      <p class="status">Détail du signalement</p>
+      <h1>{{ declaration.title }}</h1>
     </div>
-    <button type="button" class="secondary-button" (click)="restart.emit()">Nouvelle déclaration</button>
+    <span class="level-badge" [appHighlightPollution]="declaration.dangerIndex">
+      {{ declaration.dangerIndex | pollutionLevel }} · {{ declaration.dangerIndex }}
+    </span>
   </header>
 
   <div class="recap-layout">
@@ -13,12 +15,19 @@
         <div><dt>Type</dt><dd>{{ declaration.type }}</dd></div>
         <div><dt>Description</dt><dd>{{ declaration.description }}</dd></div>
         <div><dt>Date</dt><dd>{{ declaration.observationDate }}</dd></div>
-        <div><dt>Lieu</dt><dd>{{ declaration.location }}</dd></div>
-        <div><dt>Latitude</dt><dd>{{ declaration.latitude }}</dd></div>
-        <div><dt>Longitude</dt><dd>{{ declaration.longitude }}</dd></div>
-        @if (declaration.photoUrl) {
-          <div><dt>Photo</dt><dd class="photo-link">{{ declaration.photoUrl }}</dd></div>
-        }
+        <div>
+          <dt>Lieu</dt>
+          <dd>
+            {{ declaration.location }}
+            <a [href]="mapUrl(declaration.latitude, declaration.longitude)" target="_blank" rel="noopener noreferrer">
+              📍 voir sur OpenStreetMap
+            </a>
+          </dd>
+        </div>
+        <div class="coords">
+          <div><dt>Latitude</dt><dd>{{ declaration.latitude }}</dd></div>
+          <div><dt>Longitude</dt><dd>{{ declaration.longitude }}</dd></div>
+        </div>
       </dl>
     </div>
 
