@@ -55,7 +55,7 @@
           @if (pollution.id !== undefined) {
             <a [routerLink]="['/pollutions', pollution.id]">Voir le détail</a>
             @if (auth.isLoggedIn()) {
-              <button type="button" class="danger" (click)="remove(pollution.id)">Supprimer</button>
+              <button type="button" class="danger" (click)="remove(pollution.id, pollution.title)">Supprimer</button>
             }
           }
         </div>

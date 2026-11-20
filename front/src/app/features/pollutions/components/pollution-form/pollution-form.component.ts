@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PollutionPayload, PollutionDeclaration } from '../../models/pollution-declaration.model';
 import { HighlightPollutionDirective } from '../../../../shared/directives/highlight-pollution.directive';
@@ -12,7 +12,7 @@ import { PollutionLevelPipe } from '../../../../shared/pipes/pollution-level.pip
   styleUrl: './pollution-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PollutionFormComponent {
+export class PollutionFormComponent implements OnInit {
   @Input() initialValue: PollutionDeclaration | null = null;
   @Input() title = 'Formulaire Nouvelle déclaration';
   @Input() submitLabel = 'Déclarer';
@@ -36,10 +36,6 @@ export class PollutionFormComponent {
 
     return Number.isNaN(Date.parse(control.value)) ? { date: true } : null;
   };
-
-  get photoUrlControl() {
-  return this.form.controls.photoUrl;
-}
 
   private readonly imageUrlValidator: ValidatorFn = (
     control: AbstractControl
@@ -101,7 +97,6 @@ export class PollutionFormComponent {
 
     photoUrl: ['', this.imageUrlValidator]
   });
-    
 
   @Output() submitted = new EventEmitter<PollutionPayload>();
 
@@ -123,6 +118,7 @@ export class PollutionFormComponent {
   get latitudeControl() { return this.form.controls.latitude; }
   get longitudeControl() { return this.form.controls.longitude; }
   get dangerIndexControl() { return this.form.controls.dangerIndex; }
+  get photoUrlControl() { return this.form.controls.photoUrl; }
 
   submit(): void {
     if (this.form.invalid) {

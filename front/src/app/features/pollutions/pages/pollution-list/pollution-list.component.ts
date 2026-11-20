@@ -57,8 +57,8 @@ export class PollutionListComponent {
     });
   });
 
-  remove(id: number | string | undefined): void {
-    if (id === undefined) {
+  remove(id: number | string | undefined, title: string): void {
+    if (id === undefined || !confirm(`Supprimer définitivement « ${title} » ?`)) {
       return;
     }
     this.service.delete(String(id)).subscribe({
