@@ -29,6 +29,12 @@ const getPayload = (body: unknown): PollutionCreationAttributes => {
   const missing = fields
     .filter((field) => field !== "photoUrl" && (typeof input[field] !== "string" || input[field] === ""))
     .filter((field) => field !== "latitude" && field !== "longitude");
+  // Number(null) et Number("") valent 0 : une coordonnée absente doit être refusée avant la conversion
+  const isMissing = (value: unknown): boolean =>
+    value === undefined || value === null || (typeof value === "string" && value.trim() === "");
+  if (isMissing(input.latitude) || isMissing(input.longitude)) {
+    throw new Error("Les coordonnées sont requises.");
+  }
   const latitude = Number(input.latitude);
   const longitude = Number(input.longitude);
 
@@ -40,8 +46,7 @@ const getPayload = (body: unknown): PollutionCreationAttributes => {
   }
 
   const dangerIndex = Number(input.dangerIndex);
-  if (input.dangerIndex === undefined || input.dangerIndex === null || input.dangerIndex === "" ||
-      !Number.isInteger(dangerIndex) || dangerIndex < 0) {
+  if (isMissing(input.dangerIndex) || !Number.isInteger(dangerIndex) || dangerIndex < 0) {
     throw new Error("L'indice de dangerosité doit être un entier positif.");
   }
 
