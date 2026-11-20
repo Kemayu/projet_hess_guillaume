@@ -22,5 +22,10 @@ export const routes: Routes = [
         ({ UserListComponent }) => UserListComponent
       )
   },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.component').then(({ LoginComponent }) => LoginComponent)
+  },
   { path: '**', redirectTo: '' }
 ];

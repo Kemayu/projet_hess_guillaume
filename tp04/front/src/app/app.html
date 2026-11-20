@@ -5,6 +5,13 @@
     <nav class="main-nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Pollutions</a>
       <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
+      <span class="nav-spacer"></span>
+      @if (auth.currentUser(); as user) {
+        <span class="nav-user">Bonjour {{ user.firstName }}</span>
+        <button type="button" class="nav-logout" (click)="auth.logout()">Déconnexion</button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Connexion</a>
+      }
     </nav>
   </header>
   <router-outlet></router-outlet>

@@ -49,6 +49,7 @@ h1 {
 
 .main-nav {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 10px;
 	margin-top: 18px;
 }
@@ -65,6 +66,27 @@ h1 {
 .main-nav a.active {
 	background: #1e7a4d;
 	color: #fff;
+}
+
+.nav-spacer {
+	flex: 1;
+}
+
+.nav-user {
+	align-self: center;
+	color: #5e7369;
+	font-weight: 600;
+}
+
+.nav-logout {
+	padding: 8px 16px;
+	border: 1px solid rgba(169, 68, 56, 0.3);
+	border-radius: 999px;
+	background: #fff;
+	color: #a94438;
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
 }
 
 .content-grid {

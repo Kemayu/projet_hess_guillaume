@@ -1,0 +1,49 @@
+<section class="login-page">
+  <article class="card">
+    <header class="card-header">
+      <p class="eyebrow">Espace membre</p>
+      <h1>Connexion</h1>
+    </header>
+
+    @if (message()) {
+      <p class="message" role="alert">{{ message() }}</p>
+    }
+
+    <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label>
+        <span>Email</span>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Ex. jean.dupont@exemple.fr"
+          autocomplete="email"
+        >
+        @if (emailControl.touched && emailControl.hasError('required')) {
+          <small>L'email est requis.</small>
+        }
+        @if (emailControl.touched && emailControl.hasError('email')) {
+          <small>L'email doit être valide.</small>
+        }
+      </label>
+
+      <label>
+        <span>Mot de passe</span>
+        <input
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+        >
+        @if (passwordControl.touched && passwordControl.hasError('required')) {
+          <small>Le mot de passe est requis.</small>
+        }
+      </label>
+
+      <div class="actions">
+        <a routerLink="/users">Pas encore de compte ? Créer un compte</a>
+        <button type="submit" [disabled]="loading()">
+          {{ loading() ? 'Connexion...' : 'Se connecter' }}
+        </button>
+      </div>
+    </form>
+  </article>
+</section>
