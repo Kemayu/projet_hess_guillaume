@@ -13,6 +13,10 @@ import { PollutionLevelPipe } from '../../pipes/pollution-level.pipe';
 })
 export class PollutionFormComponent {
   @Input() initialValue: PollutionDeclaration | null = null;
+  @Input() title = 'Formulaire Nouvelle déclaration';
+  @Input() submitLabel = 'Déclarer';
+  // En modification, le formulaire garde les valeurs enregistrées au lieu de se vider
+  @Input() resetAfterSubmit = true;
   private readonly pollutionTypes = ['Plastique', 'Chimique', 'Dépôt sauvage', 'Eau', 'Air', 'Autre'];
   private readonly formBuilder = inject(FormBuilder);
 
@@ -144,6 +148,10 @@ export class PollutionFormComponent {
       dangerIndex: Number(raw.dangerIndex),
       photoUrl: raw.photoUrl || null
     });
+
+    if (!this.resetAfterSubmit) {
+      return;
+    }
 
     this.form.reset({
       title: '',
