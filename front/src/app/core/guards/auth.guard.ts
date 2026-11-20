@@ -12,7 +12,12 @@ export const authGuard: CanMatchFn = (_route, segments) => {
     return true;
   }
 
-  // Redirection vers la connexion, avec retour sur la page demandée ensuite
-  const returnUrl = '/' + segments.map((segment) => segment.path).join('/');
+  // URL complète demandée (ex. /pollutions/new), pour y revenir après la connexion.
+  // Les segments seuls ne suffisent pas dans une route enfant (ils ne contiennent que "new").
+  const navigation = router.currentNavigation();
+  const returnUrl = navigation
+    ? router.serializeUrl(navigation.extractedUrl)
+    : '/' + segments.map((segment) => segment.path).join('/');
+
   return router.createUrlTree(['/auth/login'], { queryParams: { returnUrl } });
 };

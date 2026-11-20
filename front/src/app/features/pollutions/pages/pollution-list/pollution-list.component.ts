@@ -3,8 +3,6 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, Subject, startWith, switchMap } from 'rxjs';
-import { PollutionFormComponent } from '../../components/pollution-form/pollution-form.component';
-import { PollutionPayload } from '../../models/pollution-declaration.model';
 import { HighlightPollutionDirective } from '../../../../shared/directives/highlight-pollution.directive';
 import { PollutionLevelPipe } from '../../../../shared/pipes/pollution-level.pipe';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -14,7 +12,7 @@ import { openStreetMapUrl } from '../../../../shared/utils/open-street-map';
 @Component({
   selector: 'app-pollution-list',
   standalone: true,
-  imports: [PollutionFormComponent, RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
+  imports: [RouterLink, PollutionLevelPipe, HighlightPollutionDirective],
   templateUrl: './pollution-list.component.html',
   styleUrl: './pollution-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -58,17 +56,6 @@ export class PollutionListComponent {
       return matchesSearch && (!type || pollution.type === type) && (!location || pollution.location === location);
     });
   });
-
-  create(pollution: PollutionPayload): void {
-    this.service.create(pollution).subscribe({
-      next: () => {
-        this.message.set('La pollution a été ajoutée.');
-        this.refresh$.next();
-      },
-      error: (err: HttpErrorResponse) =>
-        this.message.set(err.error?.message ?? 'Impossible d’ajouter la pollution.')
-    });
-  }
 
   remove(id: number | string | undefined): void {
     if (id === undefined) {

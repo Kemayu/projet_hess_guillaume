@@ -1,0 +1,3 @@
+.create-page { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
+.back-link { color: #1e7a4d; font-weight: 700; text-decoration: none; }
+.message { margin: 0; padding: 10px 14px; border-radius: 10px; background: #f6dcd8; color: #a63f2d; }
