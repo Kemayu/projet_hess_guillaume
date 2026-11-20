@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tp04-back.onrender.com'
+  apiUrl: 'https://sentinelle-back.onrender.com'
 };
