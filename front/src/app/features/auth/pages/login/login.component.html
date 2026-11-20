@@ -1,16 +1,15 @@
 <section class="login-page">
+  @if (registered) {
+    <p class="message success" role="status">Votre compte a été créé, vous pouvez vous connecter.</p>
+  }
+  @if (message()) {
+    <p class="message" role="alert">{{ message() }}</p>
+  }
+
   <article class="card">
     <header class="card-header">
-      <p class="eyebrow">Espace membre</p>
-      <h1>Connexion</h1>
+      <h2>Connexion</h2>
     </header>
-
-    @if (registered) {
-      <p class="message success" role="status">Votre compte a été créé, vous pouvez vous connecter.</p>
-    }
-    @if (message()) {
-      <p class="message" role="alert">{{ message() }}</p>
-    }
 
     <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <label>
@@ -42,11 +41,14 @@
       </label>
 
       <div class="actions">
-        <a routerLink="/auth/register">Pas encore de compte ? Créer un compte</a>
         <button type="submit" [disabled]="loading()">
           {{ loading() ? 'Connexion...' : 'Se connecter' }}
         </button>
       </div>
     </form>
   </article>
+
+  <p class="register-link">
+    Pas encore de compte ? <a routerLink="/auth/register">Créer un compte</a>
+  </p>
 </section>

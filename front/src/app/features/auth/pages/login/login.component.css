@@ -1,6 +1,22 @@
+/* Même présentation que la page d'inscription */
 .login-page {
-  max-width: 480px;
+  display: grid;
+  gap: 18px;
+  max-width: 520px;
   margin: 0 auto;
+}
+
+.message {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f6dcd8;
+  color: #a63f2d;
+}
+
+.message.success {
+  background: #dcece1;
+  color: #24573d;
 }
 
 .card {
@@ -12,31 +28,9 @@
   backdrop-filter: blur(10px);
 }
 
-.card-header h1 {
-  margin: 4px 0 0;
-  font-size: 1.8rem;
-}
-
-.eyebrow {
+.card-header h2 {
   margin: 0;
-  color: #b35c1d;
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.message {
-  margin: 18px 0 0;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #f6dcd8;
-  color: #a63f2d;
-}
-
-.message.success {
-  background: #dcece1;
-  color: #24573d;
+  font-size: 1.5rem;
 }
 
 .login-form {
@@ -65,6 +59,7 @@ input {
   background: #fff;
   color: #173127;
   padding: 14px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font: inherit;
 }
 
@@ -80,16 +75,9 @@ small {
 }
 
 .actions {
+  margin-top: 6px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.actions a {
-  color: #1e7a4d;
-  font-weight: 700;
+  justify-content: flex-end;
 }
 
 button {
@@ -100,10 +88,26 @@ button {
   color: #fff;
   font: inherit;
   font-weight: 700;
+  box-shadow: 0 16px 30px rgba(30, 122, 77, 0.22);
   cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }
 
 button:disabled {
   opacity: .6;
   cursor: wait;
+}
+
+.register-link {
+  margin: 0;
+  text-align: center;
+  color: #5e7369;
+}
+
+.register-link a {
+  color: #1e7a4d;
+  font-weight: 700;
 }
