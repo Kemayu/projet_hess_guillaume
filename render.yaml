@@ -10,7 +10,7 @@ services:
     name: tp04-back
     runtime: node
     plan: free
-    rootDir: tp04/api
+    rootDir: api
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /health
@@ -31,7 +31,7 @@ services:
   - type: web
     name: tp04-front
     runtime: static
-    rootDir: tp04/front
+    rootDir: front
     buildCommand: npm install && npm run build
     staticPublishPath: dist/tp04/browser
     envVars:
