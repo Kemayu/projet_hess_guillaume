@@ -1,115 +1,134 @@
 # Sentinelle Pollution — projet_hess_guillaume
 
-Le projet est découpé en deux dossiers :
+Application de déclaration et de suivi des pollutions : une API Node/Express +
+PostgreSQL et un front Angular 21.
 
-- `front/` : application Angular ;
-- `api/` : API Node/Express + PostgreSQL.
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.24.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
+```
+├── api/          API REST Node/Express + Sequelize (PostgreSQL)
+├── front/        Application Angular
+├── scripts/      Scripts utilitaires (données de test)
+└── render.yaml   Déploiement Render (Blueprint)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Démarrage en local
 
-## Code scaffolding
+Prérequis : Node 22 et une base PostgreSQL. Par défaut l'API se connecte à
+`postgres://postgres:postgres@localhost:5432/pollution` (ou à `DATABASE_URL`,
+ou aux variables `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Une base locale peut être lancée avec Docker :
 
 ```bash
-ng generate component component-name
+docker run -d --name pollution-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=pollution -p 5432:5432 postgres:16
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Puis, dans deux terminaux :
 
 ```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-## API PostgreSQL
-
-L'application utilise `PollutionService` et `UserService` pour appeler les routes REST suivantes :
-
-- `GET /api/pollutions`
-- `GET /api/pollutions/:id`
-- `POST /api/pollutions`
-- `PUT /api/pollutions/:id`
-- `DELETE /api/pollutions/:id`
-- `GET /api/users`
-- `POST /api/users`
-
-En développement, l'API est disponible sur `http://localhost:3000` et utilise
-PostgreSQL avec `DATABASE_URL` (ou les variables `DB_HOST`, `DB_PORT`,
-`DB_USER`, `DB_PASSWORD` et `DB_NAME`). Pour démarrer le front et l'API :
-
-```bash
-# terminal 1
+# terminal 1 — API sur http://localhost:3000
 cd api && npm install && npm run dev
 
-# terminal 2
+# terminal 2 — front sur http://localhost:4200
 cd front && npm install && npm start
 ```
 
-Les données sont stockées dans PostgreSQL. Les mots de passe des utilisateurs
-sont hachés (scrypt) et ne sont jamais renvoyés par l'API.
+Les tables sont créées et mises à jour automatiquement au démarrage de l'API
+(`sequelize.sync({ alter: true })`).
+
+### Données de test
+
+Le script `scripts/seed.mjs` remplit l'application en passant par l'API
+(inscription, connexion, puis ajout de pollutions avec photos). Il peut être
+relancé sans créer de doublons.
+
+```bash
+node scripts/seed.mjs                                               # API locale
+API_URL=https://sentinelle-back.onrender.com node scripts/seed.mjs  # API Render
+```
+
+Compte créé par défaut : `test@exemple.fr` / `motdepasse`
+(modifiable avec `SEED_EMAIL` et `SEED_PASSWORD`).
+
+### Tests
+
+```bash
+cd front && npm test
+```
+
+## API REST
+
+| Méthode | Route | Accès | Rôle |
+|---|---|---|---|
+| `GET` | `/api/pollutions` | public | Liste des pollutions |
+| `GET` | `/api/pollutions/:id` | public | Détail d'une pollution |
+| `POST` | `/api/pollutions` | connecté | Déclarer une pollution |
+| `PUT` | `/api/pollutions/:id` | connecté | Modifier une pollution |
+| `DELETE` | `/api/pollutions/:id` | connecté | Supprimer une pollution |
+| `POST` | `/api/users` | public | Inscription |
+| `GET` | `/api/users` | connecté | Liste des utilisateurs |
+| `POST` | `/api/auth/login` | public | Connexion (renvoie les tokens) |
+| `POST` | `/api/auth/refresh` | public | Nouveau couple de tokens à partir du refresh token |
+| `POST` | `/api/auth/logout` | public | Révoque le refresh token |
+| `GET` | `/api/auth/me` | connecté | Profil de l'utilisateur connecté |
+
+**Authentification JWT** : un *access token* (15 min) est envoyé dans l'en-tête
+`Authorization: Bearer <token>` ; un *refresh token* (7 jours) permet d'en
+obtenir un nouveau. Le refresh token est à usage unique (rotation) et seul son
+hash est stocké en base. Les mots de passe sont hachés avec scrypt et ne sont
+jamais renvoyés par l'API.
+
+## Front Angular
+
+### Architecture
+
+```
+front/src/app/
+├── core/       Services singletons : auth, intercepteur JWT, guards, modèles partagés
+├── shared/     Éléments réutilisables : pipe, directive, utilitaires
+└── features/   Domaines fonctionnels chargés en lazy loading
+    ├── auth/        Connexion, inscription
+    ├── pollutions/  Liste, détail, déclaration
+    └── users/       Liste des utilisateurs
+```
+
+### Routes
+
+| URL | Accès | Page |
+|---|---|---|
+| `/pollutions` | public | Liste, recherche et filtres |
+| `/pollutions/new` | connecté (`authGuard`) | Déclarer une pollution |
+| `/pollutions/:id` | public | Fiche ; modification si connecté |
+| `/users` | connecté (`authGuard`) | Liste des utilisateurs |
+| `/auth/login` | non connecté (`guestGuard`) | Connexion |
+| `/auth/register` | non connecté (`guestGuard`) | Inscription |
+
+- **Lazy loading** : chaque feature est chargée avec `loadChildren` et n'est
+  téléchargée qu'à l'accès à son URL.
+- **Guards** : `authGuard` (`canMatch`) redirige vers `/auth/login?returnUrl=…`
+  sans télécharger la feature ; `guestGuard` (`canActivate`) renvoie un
+  utilisateur déjà connecté vers `/pollutions`.
+- **OnPush** : les composants des features utilisent
+  `ChangeDetectionStrategy.OnPush` ; l'état passe par des signaux.
+- **Pipe / directive** : `PollutionLevelPipe` transforme l'indice de dangerosité
+  en niveau (Faible, Modérée, Élevée, Dangereuse) et
+  `HighlightPollutionDirective` colore le badge selon ce niveau.
 
 ## Déploiement Render
 
-Le fichier `render.yaml` définit les trois ressources Render :
+Le fichier `render.yaml` définit trois ressources :
 
 - `sentinelle-db` : base PostgreSQL ;
-- `sentinelle-back` : API Node/Express ;
+- `sentinelle-back` : API Node/Express (secrets JWT générés par Render) ;
 - `sentinelle-front` : site statique Angular.
 
-Dans Render, créer un Blueprint à partir du dépôt contenant `render.yaml`.
-L'API reçoit automatiquement la chaîne de connexion de la base et le front
-utilise `https://sentinelle-back.onrender.com` en production.
-
-Les réponses `Observable` du service sont converties en signaux avec
-`toSignal` dans les pages de liste et de détail. La page principale propose la
-création, la recherche et deux filtres (type et lieu). Chaque élément permet
-d'accéder au détail/modifier ou de supprimer la pollution.
+Dans Render, créer un Blueprint à partir du dépôt. L'API reçoit la chaîne de
+connexion de la base et le front appelle `https://sentinelle-back.onrender.com`.
+Si Render attribue une autre URL, mettre à jour
+`front/src/environments/environment.prod.ts` et `CORS_ORIGIN`.
 
 ## Idées / à faire
 
--mettre la page d'inscription
--mettre un logo et une DA et des couleur ensemble de l'app , un fond d'ecran sur la pp car c'st une SPA
--pour la position on peut mettre un lien vers le site "open street map"
--rearanger les composant et page / ergonomie de l'application
+- ✅ mettre la page d'inscription
+- mettre un logo et une DA et des couleur ensemble de l'app , un fond d'ecran sur la pp car c'st une SPA
+- ✅ pour la position on peut mettre un lien vers le site "open street map"
+- ✅ rearanger les composant et page / ergonomie de l'application
