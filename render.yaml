@@ -1,0 +1,43 @@
+
+databases:
+  - name: sentinelle-db
+    databaseName: sentinelle
+    user: sentinelle
+    plan: free
+
+services:
+  - type: web
+    name: sentinelle-back
+    runtime: node
+    plan: free
+    rootDir: api
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sentinelle-db
+          property: connectionString
+      - key: CORS_ORIGIN
+        value: https://sentinelle-front.onrender.com
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+
+  - type: web
+    name: sentinelle-front
+    runtime: static
+    rootDir: front
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist/sentinelle-pollution/browser
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
