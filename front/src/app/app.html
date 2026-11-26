@@ -4,13 +4,13 @@
     <p class="intro">Déclarez, consultez et suivez les pollutions observées.</p>
     <nav class="main-nav">
       <a routerLink="/pollutions" routerLinkActive="active">Pollutions</a>
-      @if (auth.isLoggedIn()) {
+      @if (isLoggedIn()) {
         <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
       }
       <span class="nav-spacer"></span>
-      @if (auth.currentUser(); as user) {
-        <span class="nav-user">Bonjour {{ user.firstName }}</span>
-        <button type="button" class="nav-logout" (click)="auth.logout()">Déconnexion</button>
+      @if (isLoggedIn()) {
+        <span class="nav-user">Bonjour {{ username() }}</span>
+        <button type="button" class="nav-logout" (click)="logout()">Déconnexion</button>
       } @else {
         <a routerLink="/auth/login" routerLinkActive="active">Connexion</a>
         <a routerLink="/auth/register" routerLinkActive="active">Inscription</a>
