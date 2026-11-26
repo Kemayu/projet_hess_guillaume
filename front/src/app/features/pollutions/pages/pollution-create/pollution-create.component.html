@@ -1,0 +1,13 @@
+<section class="create-page">
+  <a routerLink="/pollutions" class="back-link">← Retour à la liste</a>
+
+  @if (message()) {
+    <p class="message" role="alert">{{ message() }}</p>
+  }
+
+  <app-pollution-form
+    title="Nouvelle déclaration"
+    submitLabel="Déclarer"
+    (submitted)="create($event)"
+  ></app-pollution-form>
+</section>

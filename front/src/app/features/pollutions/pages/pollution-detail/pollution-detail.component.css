@@ -1,0 +1,6 @@
+.detail-page { display: grid; gap: 20px; max-width: 900px; margin: 0 auto; }
+.back-link { color: #1e7a4d; font-weight: 700; text-decoration: none; }
+.message { margin: 0; padding: 10px 14px; border-radius: 10px; background: #dcece1; color: #24573d; }
+.message.error { background: #f6dcd8; color: #a63f2d; }
+.login-hint { margin: 0; padding: 16px 18px; border-radius: 16px; background: rgba(255,255,255,.82); color: #5e7369; text-align: center; }
+.login-hint a { color: #1e7a4d; font-weight: 700; }

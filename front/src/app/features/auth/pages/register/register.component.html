@@ -1,0 +1,11 @@
+<section class="register-page">
+  @if (message()) {
+    <p class="message" role="alert">{{ message() }}</p>
+  }
+
+  <app-user-form (submitted)="register($event)"></app-user-form>
+
+  <p class="login-link">
+    Déjà un compte ? <a routerLink="/auth/login">Se connecter</a>
+  </p>
+</section>
